@@ -1,6 +1,7 @@
 import bibtags
 import re
 
+# Printer for MIET
 def printForMiet(contr, i):
     print(i, end = "\t")
     title = contr['title']
