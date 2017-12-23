@@ -1,5 +1,7 @@
 import bibtags
+import bibutils
 import re
+import json
 
 # Printer for MIET
 def printForMiet(contr, i):
@@ -13,13 +15,13 @@ def printForMiet(contr, i):
     print(year, end=", ")
     if(contr.get(bibtags.volume)):
         volume = contr[bibtags.volume]
-        if(contr['lang'] == 'en'):
-            print("vol. " + volume, end = ", ")
+        if(contr[bibtags.language] == bibtags.eng):
+            print("vol. " + volume, end = '')
         else:
-            print("Т. " +  volume, end = ", ")
+            print("Т. " +  volume, end = ', ')
     if(contr.get(bibtags.number)):
         number = contr[bibtags.number]
-        if(contr['lang'] == 'en'):
+        if(contr[bibtags.language] == bibtags.eng):
             print("(" + number + ")", end = ", ")
         else:
             print("№ " +  number, end = ", ")
@@ -71,20 +73,28 @@ def printForGost(contr, i):
     prn += contr[bibtags.year] + ". " + sep
     if (contr.get(bibtags.volume)):
         volume = contr[bibtags.volume]
-        if (contr['lang'] == 'en'):
-            prn += 'vol. ' + volume + '.' + sep
+        if (contr[bibtags.language] == bibtags.eng):
+            prn += 'vol. ' + volume
         else:
             prn += 'Т. ' + volume + '.' + sep
     if (contr.get(bibtags.number)):
         number = contr[bibtags.number]
-        if (contr['lang'] == 'en'):
+        if (contr[bibtags.language] == bibtags.eng):
             prn += '(' + number + ')' + sep
         else:
             prn += '№ ' + number + '.' + sep
     pages = contr[bibtags.pages]
-    if (contr[bibtags.language] == 'en'):
+    if (contr[bibtags.language] == bibtags.eng):
         prn += 'pp. ' + pages[0] + '-' + pages[1] + '.'
     else:
         prn += 'C. ' + pages[0] + "-" + pages[1] + '.'
     print(prn)
     return
+
+def printJSON(contr):
+    rec = bibutils.initRecord()
+    for tag in rec.keys():
+        if contr.get(tag):
+            rec[tag] = contr[tag]
+    rec[bibtags.id] = bibutils.generatePaperId(rec)
+    print(json.dumps(rec, ensure_ascii=False, sort_keys=True, indent=4) + ',')

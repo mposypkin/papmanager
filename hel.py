@@ -21,6 +21,7 @@ for contr in contrs:
     i = i + 1
     #bibprint.printForMiet(contr, i)
     bibprint.printForGost(contr, i)
+    #bibprint.printJSON(contr)
     print ()
 #for aut in auth:
 #    fst = aut['1st']
