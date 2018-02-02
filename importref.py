@@ -24,17 +24,19 @@ for line in sys.stdin:
             if(tag == "%0"):
                 jsondict[bibtags.type] = convertType(val)
             elif(tag == '%T'):
-                jsondict[bibtags.title] = val
-                if(re.match(".*[а-я].*", val)):
+                jsondict[bibtags.title] = val.capitalize().strip()
+                if(re.match(".*[а-я].*", jsondict[bibtags.title])):
                     jsondict[bibtags.language] = bibtags.rus
                 else:
                     jsondict[bibtags.language] = bibtags.eng
             elif(tag == '%J'):
-                jsondict[bibtags.where] = val
+                jsondict[bibtags.where] = val.strip()
+            elif (tag == '%I'):
+                jsondict[bibtags.publisher] = val
             elif (tag == '%B'):
                 jsondict[bibtags.where] = val
             elif(tag == "%A"):
-                am = re.match('(\S+),\s*(\S.*\S)', val)
+                am = re.match('(\S+),\s*(\S+)', val)
                 #if((am.group(1) == 'Посыпкин') or (am.group(1) == 'Posypkin')):
                 if (bibtags.mynames.count(am.group(1)) > 0):
                     jsondict[bibtags.authors].append({bibtags.fst: am.group(2), bibtags.snd: am.group(1), bibtags.me : bibtags.yes})

@@ -19,10 +19,14 @@ contrs = parsed['contributions']
 i = 57
 for contr in contrs:
     i = i + 1
-    #bibprint.printForMiet(contr, i)
-    bibprint.printForGost(contr, i)
+    #prn = bibprint.printForDissSovetRinc(contr, i)
+    # prn = bibprint.printForDissSovetBases(contr, i)
+#    bibprint.printForMiet(contr, i)
+    prn = bibprint.printForGost(contr, i)
     #bibprint.printJSON(contr)
-    print ()
+    if prn:
+        print(prn)
+
 #for aut in auth:
 #    fst = aut['1st']
 #    snd = aut['2nd']

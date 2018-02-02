@@ -3,7 +3,7 @@ from transliterate import translit, get_available_language_codes
 
 def initRecord ():
     return {bibtags.doi : '', bibtags.type: '', bibtags.language : '', bibtags.year: '', bibtags.where : '', bibtags.title : '', bibtags.authors : [], bibtags.volume : '', bibtags.number : '',
-                bibtags.pages : [], bibtags.url : '', bibtags.bases : [], bibtags.file : '', bibtags.id : ''}
+                bibtags.pages : [], bibtags.url : '', bibtags.bases : [], bibtags.file : '', bibtags.id : '', bibtags.translation : '', bibtags.publisher : ''}
 
 
 def generatePaperId(jdict):
